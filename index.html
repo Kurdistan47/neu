@@ -357,6 +357,148 @@ button:disabled{
     font-size:13px;
 }
 
+    .dragon-card{
+    margin-top:18px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+}
+
+.dragon-art{
+    width:170px;
+    height:170px;
+    position:relative;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    animation:floatDragon 2.4s ease-in-out infinite;
+    filter:drop-shadow(0 0 25px currentColor);
+}
+
+@keyframes floatDragon{
+    0%{transform:translateY(0) scale(1);}
+    50%{transform:translateY(-10px) scale(1.04);}
+    100%{transform:translateY(0) scale(1);}
+}
+
+.dragon-body{
+    width:82px;
+    height:105px;
+    border-radius:48% 48% 42% 42%;
+    background:currentColor;
+    position:relative;
+    box-shadow:inset -12px -18px 0 rgba(0,0,0,0.18);
+}
+
+.dragon-head{
+    width:74px;
+    height:64px;
+    background:currentColor;
+    border-radius:48% 48% 38% 38%;
+    position:absolute;
+    top:-38px;
+    left:4px;
+    box-shadow:inset -8px -10px 0 rgba(0,0,0,0.18);
+}
+
+.dragon-eye{
+    width:10px;
+    height:10px;
+    background:white;
+    border-radius:50%;
+    position:absolute;
+    top:22px;
+}
+
+.dragon-eye.left-eye{
+    left:18px;
+}
+
+.dragon-eye.right-eye{
+    right:18px;
+}
+
+.dragon-horn{
+    width:0;
+    height:0;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    border-bottom:28px solid #fff2b8;
+    position:absolute;
+    top:-21px;
+}
+
+.dragon-horn.left-horn{
+    left:12px;
+    transform:rotate(-18deg);
+}
+
+.dragon-horn.right-horn{
+    right:12px;
+    transform:rotate(18deg);
+}
+
+.dragon-wing{
+    width:75px;
+    height:92px;
+    background:currentColor;
+    position:absolute;
+    top:38px;
+    opacity:.78;
+    clip-path:polygon(50% 0%,100% 22%,78% 100%,45% 70%,18% 100%,0 24%);
+    animation:wingFlap .75s ease-in-out infinite alternate;
+}
+
+.dragon-wing.left-wing{
+    left:4px;
+    transform-origin:right center;
+}
+
+.dragon-wing.right-wing{
+    right:4px;
+    transform-origin:left center;
+}
+
+@keyframes wingFlap{
+    from{transform:rotate(-8deg) scaleY(1);}
+    to{transform:rotate(8deg) scaleY(.88);}
+}
+
+.dragon-tail{
+    width:85px;
+    height:28px;
+    border-radius:50px;
+    background:currentColor;
+    position:absolute;
+    bottom:28px;
+    right:18px;
+    transform:rotate(32deg);
+    transform-origin:left center;
+    animation:tailMove 1s ease-in-out infinite alternate;
+}
+
+@keyframes tailMove{
+    from{transform:rotate(24deg);}
+    to{transform:rotate(43deg);}
+}
+
+.dragon-aura{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    background:radial-gradient(circle, currentColor 0%, transparent 68%);
+    opacity:.22;
+    animation:auraPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes auraPulse{
+    0%{transform:scale(.85); opacity:.18;}
+    50%{transform:scale(1.2); opacity:.36;}
+    100%{transform:scale(.85); opacity:.18;}
+}
+
 @media(max-width:850px){
     .game-grid{
         grid-template-columns:1fr;
@@ -724,12 +866,28 @@ function animateHatch(item){
                         item.rarity === "mythic" ? "👑" :
                         "🐉";
 
-        result.innerHTML =
-            "<div class='rarity-label " + item.rarity + "'>" +
-            rarityEmojis[item.rarity] + " " + rarityNames[item.rarity] +
+       result.innerHTML =
+    "<div class='dragon-card " + item.rarity + "'>" +
+        "<div class='dragon-art " + item.rarity + "'>" +
+            "<div class='dragon-aura'></div>" +
+            "<div class='dragon-wing left-wing'></div>" +
+            "<div class='dragon-wing right-wing'></div>" +
+            "<div class='dragon-tail'></div>" +
+            "<div class='dragon-body'>" +
+                "<div class='dragon-head'>" +
+                    "<div class='dragon-horn left-horn'></div>" +
+                    "<div class='dragon-horn right-horn'></div>" +
+                    "<div class='dragon-eye left-eye'></div>" +
+                    "<div class='dragon-eye right-eye'></div>" +
+                "</div>" +
             "</div>" +
-            "<div class='dragon-name " + item.rarity + "'>" + item.name + "</div>" +
-            "<div style='margin-top:8px;color:#b9accb;'>Wert: " + item.value + " Gold</div>";
+        "</div>" +
+        "<div class='rarity-label " + item.rarity + "'>" +
+            rarityEmojis[item.rarity] + " " + rarityNames[item.rarity] +
+        "</div>" +
+        "<div class='dragon-name " + item.rarity + "'>" + item.name + "</div>" +
+        "<div style='margin-top:8px;color:#b9accb;'>Wert: " + item.value + " Gold</div>" +
+    "</div>";
 
         if(["legendary","mythic","ancient","celestial"].includes(item.rarity)){
             toast(rarityNames[item.rarity] + " DROP! " + item.name);
