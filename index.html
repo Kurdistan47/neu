@@ -4,702 +4,649 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dragon Hatch Ultimate</title>
+<title>Dragon Hatch Cinematic</title>
 
 <style>
 :root{
-    --bg1:#10051f;
-    --bg2:#1a0b2e;
-    --gold:#ffd700;
-    --dark:#12091f;
-    --panel:rgba(255,255,255,0.08);
-    --panel2:rgba(255,255,255,0.13);
-    --text:#ffffff;
-    --muted:#b9accb;
-    --common:#b8b8b8;
-    --rare:#36ff7a;
-    --epic:#4da3ff;
-    --legendary:#c75cff;
-    --mythic:#ffd700;
-    --ancient:#ff3838;
-    --celestial:#58fff4;
+    --bg:#07040d;
+    --panel:rgba(255,255,255,.08);
+    --glass:rgba(255,255,255,.12);
+    --text:#fff;
+    --muted:#bcb0cf;
+    --gold:#ffd34d;
+
+    --common:#b7b7b7;
+    --rare:#48ff8b;
+    --epic:#4aa3ff;
+    --legendary:#c45cff;
+    --mythic:#ffd34d;
+    --ancient:#ff3737;
+    --celestial:#6ffff5;
 }
 
 *{
     box-sizing:border-box;
 }
 
-body{
+bo*y{
     margin:0;
-    font-family:Arial, Helvetica, sans-serif;
+    min-height:10*vh;
+    font-family:Arial, Helveti*a, sans-serif;
+    color:var(--tex*);
     background:
-        radial-gradient(circle at top, #3c1577 0%, transparent 35%),
-        linear-gradient(135deg,var(--bg1),var(--bg2),#05020a);
-    color:var(--text);
-    min-height:100vh;
+        radial-*radient(circle at 50% 0%, #34106b *%, transparent 35%),
+        radia*-gradient(circle at 10% 90%, #1228*c 0%, transparent 30%),
+        li*ear-gradient(135deg,#05020a,#12082*,#07040d);
     overflow-x:hidden;
-}
+*
 
 header{
-    padding:22px;
-    text-align:center;
-    background:rgba(0,0,0,0.25);
-    border-bottom:1px solid rgba(255,255,255,0.1);
-    position:sticky;
+    padding:20px;
+    te*t-align:center;
+    position:stick*;
     top:0;
-    z-index:10;
-    backdrop-filter:blur(12px);
+    z-index:50;
+    b*ckground:rgba(0,0,0,.35);
+    back*rop-filter:blur(14px);
+    border-*ottom:1px solid rgba(255,255,255,.*2);
 }
 
 h1{
     margin:0;
-    font-size:34px;
+    font-*ize:34px;
     letter-spacing:1px;
-}
+*
 
 .subtitle{
-    color:var(--muted);
-    margin-top:8px;
-    font-size:14px;
+    margin-top:6px;
+ *  color:var(--muted);
+    font-siz*:14px;
 }
 
-.statsbar{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
-    max-width:950px;
+.stats{
+    max-width:98*px;
     margin:18px auto 0;
+    di*play:grid;
+    grid-template-colum*s:repeat(4,1fr);
+    gap:10px;
 }
 
-.stat{
-    background:var(--panel);
-    padding:12px;
-    border-radius:16px;
-    border:1px solid rgba(255,255,255,0.09);
+*stat{
+    background:var(--panel);*    border:1px solid rgba(255,255,*55,.12);
+    border-radius:18px;
+ *  padding:12px;
 }
 
 .stat b{
-    display:block;
-    color:var(--gold);
-    font-size:20px;
+    di*play:block;
+    color:var(--gold);*    font-size:22px;
 }
 
 main{
-    max-width:1150px;
-    margin:0 auto;
-    padding:22px;
+    m*x-width:1150px;
+    margin:auto;
+ *  padding:24px;
 }
 
-.game-grid{
-    display:grid;
-    grid-template-columns:1.1fr 0.9fr;
+.layout{
+    di*play:grid;
+    grid-template-colum*s:1.05fr .95fr;
     gap:22px;
 }
 
-.panel{
-    background:var(--panel);
-    border:1px solid rgba(255,255,255,0.1);
-    border-radius:24px;
-    padding:22px;
-    box-shadow:0 20px 50px rgba(0,0,0,0.35);
+.*anel{
+    background:var(--panel);*    border:1px solid rgba(255,255,*55,.12);
+    border-radius:28px;
+ *  padding:22px;
+    box-shadow:0 2*px 60px rgba(0,0,0,.42);
 }
 
-.egg-area{
-    text-align:center;
+.stage*
+    min-height:610px;
+    text-al*gn:center;
     position:relative;
-    overflow:hidden;
-    min-height:560px;
+*   overflow:hidden;
 }
 
-.egg{
-    font-size:145px;
-    margin:24px 0 8px;
-    display:inline-block;
-    filter:drop-shadow(0 0 30px rgba(255,215,0,0.5));
-    cursor:pointer;
-    user-select:none;
-    transition:transform .2s;
-}
-
-.egg:hover{
-    transform:scale(1.05);
-}
-
-.egg.shake{
-    animation:shake .7s ease-in-out;
-}
-
-@keyframes shake{
-    0%{transform:translateX(0) rotate(0deg) scale(1);}
-    15%{transform:translateX(-12px) rotate(-8deg) scale(1.05);}
-    30%{transform:translateX(12px) rotate(8deg) scale(1.07);}
-    45%{transform:translateX(-10px) rotate(-6deg) scale(1.08);}
-    60%{transform:translateX(10px) rotate(6deg) scale(1.08);}
-    75%{transform:translateX(-5px) rotate(-3deg) scale(1.05);}
-    100%{transform:translateX(0) rotate(0deg) scale(1);}
-}
-
-.ray{
-    position:absolute;
+.stage::bef*re{
+    content:"";
+    position:a*solute;
     inset:-40%;
-    opacity:0;
-    pointer-events:none;
-    transform:scale(0.5);
+    backgr*und:
+        radial-gradient(circl*, rgba(255,255,255,.12), transpare*t 35%),
+        conic-gradient(fro* 120deg, transparent, rgba(255,255*255,.09), transparent);
+    opacit*:.28;
+    animation:slowSpin 16s l*near infinite;
+    pointer-events:*one;
 }
 
-.ray.show{
-    animation:rayFlash 1.25s ease-out;
+@keyframes slowSpin{
+    f*om{transform:rotate(0deg);}
+    to*transform:rotate(360deg);}
 }
 
-@keyframes rayFlash{
-    0%{opacity:0; transform:scale(0.4);}
-    20%{opacity:1; transform:scale(1);}
-    100%{opacity:0; transform:scale(1.5);}
+.egg*wrap{
+    position:relative;
+    z*index:2;
+    margin-top:24px;
 }
 
-.result{
-    min-height:145px;
-    margin-top:10px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
+.*gg{
+    font-size:140px;
+    curso*:pointer;
+    display:inline-block*
+    filter:drop-shadow(0 0 35px r*ba(255,211,77,.55));
+    animation*eggIdle 2.2s ease-in-out infinite;*    user-select:none;
 }
 
-.dragon-name{
-    font-size:30px;
-    font-weight:900;
-    margin-top:8px;
+@keyframe* eggIdle{
+    0%,100%{transform:tr*nslateY(0) scale(1);}
+    50%{tran*form:translateY(-8px) scale(1.04);*
 }
 
-.rarity-label{
-    padding:8px 14px;
-    border-radius:999px;
-    background:rgba(255,255,255,0.12);
-    font-weight:bold;
-    margin-top:8px;
+.egg.crack{
+    animation:eggC*ack .8s ease-in-out;
+}
+
+@keyframes*eggCrack{
+    0%{transform:rotate(*) scale(1);}
+    15%{transform:rot*te(-10deg) scale(1.06);}
+    30%{t*ansform:rotate(10deg) scale(1.08);*
+    45%{transform:rotate(-16deg) *cale(1.1);}
+    60%{transform:rota*e(16deg) scale(1.12);}
+    80%{tra*sform:rotate(-7deg) scale(1.05);}
+*   100%{transform:rotate(0) scale(*);}
 }
 
 button{
     border:none;
-    border-radius:16px;
-    padding:15px 20px;
-    font-weight:800;
-    font-size:16px;
-    cursor:pointer;
-    transition:.2s;
+  * border-radius:17px;
+    padding:1*px 18px;
     color:white;
-    background:#6d35ff;
+    back*round:#6a39ff;
+    font-size:16px;*    font-weight:900;
+    cursor:po*nter;
+    transition:.2s;
 }
 
-button:hover{
-    transform:translateY(-2px);
-    filter:brightness(1.1);
-}
+butto*:hover{
+    transform:translateY(-*px);
+    filter:brightness(1.12);
+*
 
 button:disabled{
-    opacity:.45;
-    cursor:not-allowed;
-    transform:none;
+    opacity:.5;*    cursor:not-allowed;
+    transf*rm:none;
 }
 
 .primary{
-    background:linear-gradient(135deg,#ffcc00,#ff8c00);
-    color:#1b1000;
-    box-shadow:0 0 24px rgba(255,183,0,0.35);
-}
-
-.danger{
-    background:linear-gradient(135deg,#ff3c3c,#9e1212);
+    backgrou*d:linear-gradient(135deg,#ffd94d,#*f8c1a);
+    color:#211200;
+    box*shadow:0 0 25px rgba(255,200,0,.35*;
 }
 
 .green{
-    background:linear-gradient(135deg,#19d66b,#087c3a);
-}
+    background:linear*gradient(135deg,#1fe37a,#07833f);
+*
 
 .blue{
-    background:linear-gradient(135deg,#2997ff,#1739b7);
+    background:linear-gra*ient(135deg,#2fa4ff,#1833c9);
 }
 
-.purple{
-    background:linear-gradient(135deg,#a84dff,#5518b8);
+.*urple{
+    background:linear-gradi*nt(135deg,#b661ff,#5518b8);
 }
 
-.controls{
+.co*trols{
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
+    grid-*emplate-columns:1fr 1fr;
+    gap:1*px;
+    position:relative;
+    z-i*dex:3;
+    margin-top:22px;
+}
+
+.re*ult{
+    min-height:250px;
+    pos*tion:relative;
+    z-index:3;
+    *argin-top:20px;
+    display:flex;
+*   justify-content:center;
+    ali*n-items:center;
+}
+
+.card{
+    widt*:min(360px,100%);
+    background:l*near-gradient(180deg,rgba(255,255,*55,.16),rgba(255,255,255,.06));
+  * border:1px solid rgba(255,255,255*.18);
+    border-radius:26px;
+    *adding:18px;
+    box-shadow:0 20px*55px rgba(0,0,0,.5);
+    animation*cardPop .55s ease-out;
+}
+
+@keyfram*s cardPop{
+    from{transform:scal*(.75) translateY(30px); opacity:0;*
+    to{transform:scale(1) transla*eY(0); opacity:1;}
+}
+
+.rarity-pill*
+    display:inline-block;
+    pad*ing:8px 14px;
+    border-radius:99*px;
+    background:rgba(255,255,25*,.15);
+    font-weight:900;
+    ma*gin-top:8px;
+}
+
+.dragon-name{
+    *ont-size:24px;
+    font-weight:100*;
     margin-top:12px;
 }
 
-.full{
-    grid-column:1/-1;
-}
+.dragon-*vg{
+    width:230px;
+    height:19*px;
+    margin:auto;
+    display:b*ock;
+    filter:drop-shadow(0 0 25*x currentColor);
+    animation:dra*onFloat 2.2s ease-in-out infinite;*}
 
-.price{
-    color:var(--muted);
-    margin-top:10px;
-    font-size:14px;
-}
+@keyframes dragonFloat{
+    0%,*00%{transform:translateY(0);}
+    *0%{transform:translateY(-10px);}
+}*
+.common{color:var(--common);}
+.ra*e{color:var(--rare);}
+.epic{color:*ar(--epic);}
+.legendary{color:var(*-legendary);}
+.mythic{color:var(--*ythic);}
+.ancient{color:var(--anci*nt);}
+.celestial{color:var(--celes*ial);}
 
 .tabs{
     display:flex;
-    gap:10px;
+ *  gap:8px;
     flex-wrap:wrap;
-    margin-bottom:16px;
+   *margin-bottom:15px;
 }
 
 .tab{
-    padding:10px 14px;
-    background:var(--panel2);
-    border-radius:999px;
+    p*dding:10px 13px;
+    border-radius*999px;
+    background:var(--glass)*
     cursor:pointer;
-    font-weight:bold;
+    font-weig*t:900;
 }
 
 .tab.active{
-    background:var(--gold);
-    color:#1a1200;
-}
+    backgro*nd:var(--gold);
+    color:#1d1200;*}
 
 .list{
-    max-height:420px;
-    overflow:auto;
-    padding-right:8px;
+    max-height:470px;
+  * overflow:auto;
+    padding-right:*px;
 }
 
 .item{
-    background:rgba(255,255,255,0.08);
-    border:1px solid rgba(255,255,255,0.08);
-    padding:13px;
-    margin-bottom:10px;
-    border-radius:16px;
     display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
+  * justify-content:space-between;
+  * gap:10px;
+    align-items:center;*    margin-bottom:10px;
+    paddin*:13px;
+    border-radius:18px;
+   *background:rgba(255,255,255,.08);
+*   border:1px solid rgba(255,255,2*5,.1);
 }
 
 .item small{
+    display*block;
     color:var(--muted);
+   *margin-top:3px;
 }
-
-.badge{
-    padding:5px 10px;
-    border-radius:999px;
-    font-size:12px;
-    font-weight:900;
-    background:rgba(255,255,255,0.13);
-}
-
-.common{color:var(--common);}
-.rare{color:var(--rare);}
-.epic{color:var(--epic);}
-.legendary{color:var(--legendary);}
-.mythic{color:var(--mythic);}
-.ancient{color:var(--ancient);}
-.celestial{color:var(--celestial);}
 
 .shop-card{
-    background:rgba(255,255,255,0.08);
-    border:1px solid rgba(255,255,255,0.08);
-    padding:15px;
-    border-radius:18px;
+   *padding:16px;
+    border-radius:18*x;
     margin-bottom:12px;
-}
-
-.shop-card h3{
-    margin:0 0 6px;
+    bac*ground:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.1);
 }
 
 .shop-card p{
-    margin:0 0 10px;
     color:var(--muted);
-}
-
-.achievement{
-    padding:12px;
-    border-radius:16px;
-    margin-bottom:10px;
-    background:rgba(255,255,255,0.07);
-    border:1px solid rgba(255,255,255,0.08);
-}
-
-.achievement.done{
-    background:rgba(255,215,0,0.12);
-    border-color:rgba(255,215,0,0.35);
+    margin-top:4px;
 }
 
 .toast{
     position:fixed;
-    bottom:18px;
     left:50%;
-    transform:translateX(-50%) translateY(120px);
-    background:#111;
-    color:white;
-    border:1px solid rgba(255,255,255,0.15);
+    bottom:20px;
+    transform:translateX(-50%) translateY(140px);
     padding:15px 20px;
+    background:#0b0712;
+    border:1px solid rgba(255,255,255,.2);
     border-radius:18px;
-    box-shadow:0 15px 35px rgba(0,0,0,.5);
-    z-index:999;
-    transition:.35s;
-    font-weight:bold;
+    box-shadow:0 15px 40px rgba(0,0,0,.6);
+    z-index:9999;
+    transition:.32s;
+    font-weight:900;
 }
 
 .toast.show{
     transform:translateX(-50%) translateY(0);
 }
 
-.footer-note{
-    text-align:center;
-    color:var(--muted);
-    margin:30px 0;
-    font-size:13px;
+/* CINEMATIC OVERLAY */
+
+#cinema{
+    position:fixed;
+  * inset:0;
+    display:none;
+    z-*ndex:5000;
+    background:#020105;*    overflow:hidden;
 }
 
-    .dragon-card{
-    margin-top:18px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:10px;
+#cinema.sh*w{
+    display:block;
 }
 
-.dragon-art{
-    width:170px;
-    height:170px;
-    position:relative;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    animation:floatDragon 2.4s ease-in-out infinite;
-    filter:drop-shadow(0 0 25px currentColor);
-}
-
-@keyframes floatDragon{
-    0%{transform:translateY(0) scale(1);}
-    50%{transform:translateY(-10px) scale(1.04);}
-    100%{transform:translateY(0) scale(1);}
-}
-
-.dragon-body{
-    width:82px;
-    height:105px;
-    border-radius:48% 48% 42% 42%;
-    background:currentColor;
-    position:relative;
-    box-shadow:inset -12px -18px 0 rgba(0,0,0,0.18);
-}
-
-.dragon-head{
-    width:74px;
-    height:64px;
-    background:currentColor;
-    border-radius:48% 48% 38% 38%;
+.cinema-f*g{
     position:absolute;
-    top:-38px;
-    left:4px;
-    box-shadow:inset -8px -10px 0 rgba(0,0,0,0.18);
+    inse*:-20%;
+    background:
+        rad*al-gradient(circle at 20% 80%, rgb*(255,255,255,.13), transparent 35%*,
+        radial-gradient(circle a* 70% 60%, rgba(255,255,255,.12), t*ansparent 40%),
+        radial-gra*ient(circle at 50% 40%, rgba(255,2*5,255,.09), transparent 30%);
+    *ilter:blur(18px);
+    opacity:0;
+ *  animation:fogMove 3s ease-out fo*wards;
 }
 
-.dragon-eye{
-    width:10px;
-    height:10px;
-    background:white;
-    border-radius:50%;
+@keyframes fogMove{
+    *%{opacity:0; transform:translateX(*80px);}
+    35%{opacity:.85;}
+    *00%{opacity:.25; transform:transla*eX(80px);}
+}
+
+.cinema-light{
+    p*sition:absolute;
+    inset:-30%;
+ *  opacity:0;
+    animation:lightBl*st 2.6s ease-out forwards;
+}
+
+@key*rames lightBlast{
+    0%{opacity:0* transform:scale(.3);}
+    25%{opa*ity:1; transform:scale(.85);}
+    *00%{opacity:0; transform:scale(1.8*;}
+}
+
+.cinema-eyes{
+    position:a*solute;
+    left:50%;
+    top:38%;*    transform:translate(-50%,-50%)*
+    width:310px;
+    height:70px;*    opacity:0;
+    animation:eyesO*en 2.4s ease-out forwards;
+}
+
+.eye*
     position:absolute;
-    top:22px;
+    width:*2px;
+    height:30px;
+    border-r*dius:50%;
+    background:currentCo*or;
+    box-shadow:0 0 35px curren*Color, 0 0 80px currentColor;
 }
 
-.dragon-eye.left-eye{
-    left:18px;
+.*ye.left{
+    left:30px;
 }
 
-.dragon-eye.right-eye{
-    right:18px;
+.eye.ri*ht{
+    right:30px;
 }
 
-.dragon-horn{
-    width:0;
-    height:0;
-    border-left:10px solid transparent;
-    border-right:10px solid transparent;
-    border-bottom:28px solid #fff2b8;
-    position:absolute;
-    top:-21px;
+@keyframes *yesOpen{
+    0%,22%{opacity:0; tra*sform:translate(-50%,-50%) scaleY(*08);}
+    42%{opacity:1; transform*translate(-50%,-50%) scaleY(1);}
+ *  100%{opacity:0; transform:transl*te(-50%,-80%) scaleY(1.2);}
 }
 
-.dragon-horn.left-horn{
-    left:12px;
-    transform:rotate(-18deg);
+.ci*ema-dragon{
+    position:absolute;*    left:50%;
+    top:58%;
+    tra*sform:translate(-50%,-50%) scale(.*5);
+    opacity:0;
+    animation:d*agonAscend 3.2s ease-out forwards;*}
+
+@keyframes dragonAscend{
+    0%*opacity:0; transform:translate(-50*,20%) scale(.15) rotate(-6deg);}
+ *  25%{opacity:1;}
+    60%{opacity:*; transform:translate(-50%,-45%) s*ale(1.05) rotate(3deg);}
+    100%{*pacity:0; transform:translate(-50%*-130%) scale(1.6) rotate(0deg);}
+}*
+.cinema-smoke{
+    position:absol*te;
+    left:50%;
+    top:54%;
+   *width:440px;
+    height:130px;
+   *transform:translate(-50%,-50%);
+  * border-radius:50%;
+    background*radial-gradient(circle, rgba(255,2*5,255,.33), transparent 65%);
+    *ilter:blur(20px);
+    opacity:0;
+ *  animation:smokePuff 2.4s ease-ou* forwards;
 }
 
-.dragon-horn.right-horn{
-    right:12px;
-    transform:rotate(18deg);
+@keyframes smokePuff*
+    0%,28%{opacity:0; transform:t*anslate(-50%,-50%) scale(.4);}
+   *47%{opacity:.9; transform:translat*(-50%,-50%) scale(1);}
+    100%{op*city:0; transform:translate(-50%,-*0%) scale(2.1);}
 }
 
-.dragon-wing{
-    width:75px;
-    height:92px;
-    background:currentColor;
-    position:absolute;
-    top:38px;
-    opacity:.78;
-    clip-path:polygon(50% 0%,100% 22%,78% 100%,45% 70%,18% 100%,0 24%);
-    animation:wingFlap .75s ease-in-out infinite alternate;
+.goofy-runner{*    position:absolute;
+    left:-2*0px;
+    bottom:18%;
+    font-size*90px;
+    opacity:0;
+    animation*goofyRun 2.8s ease-in-out forwards*
+    filter:drop-shadow(0 15px 18p* rgba(0,0,0,.6));
 }
 
-.dragon-wing.left-wing{
-    left:4px;
-    transform-origin:right center;
+@keyframes go*fyRun{
+    0%{left:-280px; opacity*0; transform:rotate(-8deg);}
+    1*%{opacity:1;}
+    55%{left:45%; tr*nsform:rotate(7deg);}
+    80%{left*52%; transform:rotate(-5deg);}
+   *100%{left:120%; opacity:0; transfo*m:rotate(8deg);}
 }
 
-.dragon-wing.right-wing{
-    right:4px;
-    transform-origin:left center;
+.screen-shake{*    animation:screenShake .42s lin*ar 4;
 }
 
-@keyframes wingFlap{
-    from{transform:rotate(-8deg) scaleY(1);}
-    to{transform:rotate(8deg) scaleY(.88);}
+@keyframes screenShake{
+ *  0%{transform:translate(0,0);}
+  * 25%{transform:translate(9px,-7px)*}
+    50%{transform:translate(-8px*6px);}
+    75%{transform:translate*7px,8px);}
+    100%{transform:tran*late(0,0);}
 }
 
-.dragon-tail{
-    width:85px;
-    height:28px;
-    border-radius:50px;
-    background:currentColor;
-    position:absolute;
-    bottom:28px;
-    right:18px;
-    transform:rotate(32deg);
-    transform-origin:left center;
-    animation:tailMove 1s ease-in-out infinite alternate;
-}
-
-@keyframes tailMove{
-    from{transform:rotate(24deg);}
-    to{transform:rotate(43deg);}
-}
-
-.dragon-aura{
-    position:absolute;
-    inset:0;
-    border-radius:50%;
-    background:radial-gradient(circle, currentColor 0%, transparent 68%);
-    opacity:.22;
-    animation:auraPulse 1.4s ease-in-out infinite;
-}
-
-@keyframes auraPulse{
-    0%{transform:scale(.85); opacity:.18;}
-    50%{transform:scale(1.2); opacity:.36;}
-    100%{transform:scale(.85); opacity:.18;}
-}
-
-@media(max-width:850px){
-    .game-grid{
-        grid-template-columns:1fr;
+@media(max-width:85*px){
+    .layout{
+        grid-tem*late-columns:1fr;
     }
 
-    .statsbar{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    h1{
-        font-size:28px;
-    }
-
-    .egg{
-        font-size:115px;
-    }
-
-    .dragon-name{
-        font-size:24px;
+    .stat*{
+        grid-template-columns:re*eat(2,1fr);
     }
 
     .controls{
-        grid-template-columns:1fr;
+*       grid-template-columns:1fr;
+*   }
+
+    .egg{
+        font-size:*10px;
     }
 
-    .full{
-        grid-column:auto;
+    h1{
+        font-*ize:26px;
+    }
+
+    .stage{
+     *  min-height:560px;
     }
 }
-</style>
+</styl*>
 </head>
 
 <body>
 
 <header>
-    <h1>🐉 Dragon Hatch Ultimate</h1>
-    <div class="subtitle">Öffne Eier, sammle Drachen, verkaufe Lappen-Drops und jag Celestial Legenden.</div>
+    <h*>🐉 Dragon Hatch Cinematic</h1>
+  * <div class="subtitle">Eier öffnen* wilde Drachen ziehen, Gold farmen* Celestial jagen.</div>
 
-    <div class="statsbar">
-        <div class="stat">
-            <b id="gold">100</b>
-            Gold
-        </div>
-        <div class="stat">
-            <b id="eggsOpened">0</b>
-            Eier geöffnet
-        </div>
-        <div class="stat">
-            <b id="level">1</b>
-            Level
-        </div>
-        <div class="stat">
-            <b id="luck">0%</b>
-            Luck Bonus
-        </div>
-    </div>
+    <div *lass="stats">
+        <div class="*tat"><b id="gold">500</b>Gold</div*
+        <div class="stat"><b id="*pened">0</b>Eier</div>
+        <di* class="stat"><b id="level">1</b>L*vel</div>
+        <div class="stat*><b id="luck">0%</b>Luck</div>
+   *</div>
 </header>
 
 <main>
-    <div class="game-grid">
+    <div *lass="layout">
+        <section cl*ss="panel stage">
+            <h2>*� Drachen-Ei</h2>
 
-        <section class="panel egg-area">
-            <div id="ray" class="ray"></div>
+            <di* class="egg-wrap">
+               *<div id="egg" class="egg">🥚</div>*            </div>
 
-            <h2>🥚 Drachen-Ei</h2>
-            <div id="egg" class="egg">🥚</div>
+            <d*v class="controls">
+              * <button class="primary" id="openB*n">Ei öffnen - 10 Gold</button>
+  *             <button class="blue" *d="open5Btn">5x öffnen - 50 Gold</*utton>
+                <button cla*s="green" id="sellCommonBtn">Commo* verkaufen</button>
+              * <button class="purple" id="dailyB*n">Daily Gold</button>
+           *</div>
 
-            <div class="controls">
-                <button id="hatchBtn" class="primary">Ei öffnen - 10 Gold</button>
-                <button id="multiBtn" class="blue">5x öffnen - 50 Gold</button>
-                <button id="sellCommonsBtn" class="green">Alle Common verkaufen</button>
-                <button id="claimBtn" class="purple">Tägliche Belohnung</button>
-            </div>
-
-            <div class="price">
-                Verkauf: Common 5g, Rare 18g, Epic 55g, Legendary 180g, Mythic 750g, Ancient 2500g, Celestial 10000g
-            </div>
-
-            <div id="result" class="result">
-                <div>Tippe auf das Ei oder den Button.</div>
-                <div class="rarity-label">Viel Glück, Bruder 🐉</div>
-            </div>
+            <div id="resul*" class="result">
+                *div class="card">
+                *   <div style="font-size:55px;">🐲*/div>
+                    <div cla*s="dragon-name">Bereit zum Hatchen*/div>
+                    <div cla*s="rarity-pill">Tippe auf das Ei</*iv>
+                </div>
+       *    </div>
         </section>
 
-        <section class="panel">
-            <div class="tabs">
-                <div class="tab active" onclick="showTab('inventory')">Inventar</div>
-                <div class="tab" onclick="showTab('shop')">Shop</div>
-                <div class="tab" onclick="showTab('achievements')">Erfolge</div>
-                <div class="tab" onclick="showTab('stats')">Stats</div>
+   *    <section class="panel">
+      *     <div class="tabs">
+          *     <div class="tab active" oncli*k="tab('inv')">Inventar</div>
+    *           <div class="tab" onclic*="tab('shop')">Shop</div>
+        *       <div class="tab" onclick="t*b('stats')">Stats</div>
+          * </div>
+
+            <div id="invT*b">
+                <h2>📦 Inventa*</h2>
+                <div id="inv*ntory" class="list"></div>
+       *    </div>
+
+            <div id="s*opTab" style="display:none;">
+    *           <h2>🛒 Shop</h2>
+
+     *          <div class="shop-card">
+*                   <h3>🍀 Luck Amu*ett</h3>
+                    <p>Er*öht dauerhaft deine Chance auf sel*ene Drachen.</p>
+                 *  <button onclick="buyLuck()">Kauf*n: <span id="luckCost">200</span> *old</button>
+                </div*
+
+                <div class="shop*card">
+                    <h3>👑 *oyal Egg</h3>
+                    *p>Teures Ei mit besseren Chancen a*f Epic bis Celestial.</p>
+        *           <button onclick="royalE*g()">Öffnen: 150 Gold</button>
+   *            </div>
+
+              * <div class="shop-card">
+         *          <h3>💰 Riskanter Goldboo*t</h3>
+                    <p>Kann*dich reich machen oder einfach nur*mittelmäßig sein.</p>
+            *       <button onclick="goldBoost(*">Kaufen: 250 Gold</button>
+      *         </div>
+            </div>*
+            <div id="statsTab" st*le="display:none;">
+              * <h2>📊 Drops</h2>
+               *<div id="statsList" class="list"><*div>
             </div>
-
-            <div id="inventoryTab">
-                <h2>📦 Inventar</h2>
-                <div id="inventory" class="list"></div>
-            </div>
-
-            <div id="shopTab" style="display:none;">
-                <h2>🛒 Shop</h2>
-
-                <div class="shop-card">
-                    <h3>🍀 Glücks-Amulett</h3>
-                    <p>Erhöht deine Chance auf seltene Drachen dauerhaft.</p>
-                    <button onclick="buyLuck()">Kaufen: <span id="luckCost">150</span> Gold</button>
-                </div>
-
-                <div class="shop-card">
-                    <h3>🥚 Premium Ei</h3>
-                    <p>Teurer, aber bessere Chancen auf Epic+.</p>
-                    <button onclick="premiumHatch()">Öffnen: 100 Gold</button>
-                </div>
-
-                <div class="shop-card">
-                    <h3>💰 Gold-Booster</h3>
-                    <p>Du bekommst sofort Bonus-Gold.</p>
-                    <button onclick="buyGoldBoost()">Kaufen: 250 Gold</button>
-                </div>
-            </div>
-
-            <div id="achievementsTab" style="display:none;">
-                <h2>🏆 Erfolge</h2>
-                <div id="achievements"></div>
-            </div>
-
-            <div id="statsTab" style="display:none;">
-                <h2>📊 Statistik</h2>
-                <div id="statsList"></div>
-            </div>
-        </section>
-
-    </div>
-
-    <div class="footer-note">
-        Speicherstand wird automatisch im Browser gespeichert. Wenn du am selben Gerät wieder öffnest, ist dein Fortschritt noch da.
+        </*ection>
     </div>
 </main>
 
-<div id="toast" class="toast"></div>
+<div i*="cinema">
+    <div class="cinema-*og"></div>
+    <div id="cinemaLigh*" class="cinema-light"></div>
+    *div id="cinemaEyes" class="cinema-*yes">
+        <div class="eye left*></div>
+        <div class="eye ri*ht"></div>
+    </div>
+    <div id=*cinemaSmoke" class="cinema-smoke">*/div>
+    <div id="cinemaDragon" c*ass="cinema-dragon"></div>
+    <di* id="goofyRunner" class="goofy-run*er">🐉🛒🥤</div>
+</div>
 
-<script>
+<div id="*oast" class="toast"></div>
+
+<scrip*>
 let state = {
-    gold:10000000000,
-    eggsOpened:0,
+    gold:500,
+    *pened:0,
     level:1,
     xp:0,
-    luck:0,
+  * luck:0,
     luckLevel:0,
+    last*aily:0,
     inventory:[],
-    lastDaily:0,
-    found:{
+    foun*:{
         common:0,
-        rare:0,
+        rare:*,
         epic:0,
-        legendary:0,
+        legendar*:0,
         mythic:0,
-        ancient:0,
+        anci*nt:0,
         celestial:0
-    },
-    achievements:{}
-};
-
-const eggCost = 10;
-
-const sellValues = {
-    common:5,
-    rare:18,
-    epic:55,
-    legendary:180,
-    mythic:750,
-    ancient:2500,
-    celestial:10000
-};
-
+    }
+};*
 const dragons = {
     common:[
-        "Müsliriegel-Drache",
-        "Schlafsack-Drache",
-        "Dosencola-Drache",
-        "WLAN-Schnorrer-Drache",
-        "Einkaufswagen-Drache"
+        "Pfandflaschen-Drache",
+        "Kiosk-Chips-Drache",
+        "Halbe-Socke-Drache",
+        "Busbahnhof-Drache",
+        "Dosencola-Drache"
     ],
     rare:[
         "Trendtanz-Drache",
         "Livestream-Drache",
         "Selfie-Drache",
-        "Viralclip-Drache",
-        "Hashtag-Drache"
+        "Hashtag-Drache",
+        "Friseur-Talahon-Drache"
     ],
-    epic:[
-        "WhatsApp-Mastermind-Drache",
+   *epic:[
+        "WhatsApp-Gruppen-Drache",
         "Erfolgsseminar-Drache",
-        "Luxusmietwagen-Drache",
         "Krypto-Coach-Drache",
+        "Luxusmietwagen-Drache",
         "Passives-Einkommen-Drache"
     ],
     legendary:[
-        "Titan-Faust-Drache",
         "Oktagon-Drache",
+        "Titan-Faust-Drache",
         "Champion-Drache",
         "Berserker-Drache",
-        "Gladiator-Drache"
+        "Knockout-Drache"
     ],
     mythic:[
         "Goldkronen-Drache",
@@ -713,16 +660,18 @@ const dragons = {
         "Tsunami-Drache",
         "Himmelswind-Drache",
         "Erdbeben-Drache",
-        "Avatar-Drache"
+        "All-Element-Drache"
     ],
     celestial:[
         "Sternenkaiser-Drache",
-        "Unendlicher-Krieger-Drache",
         "Galaxien-Fürst-Drache",
+        "Unendlicher-Krieger-Drache",
         "Leerenkönig-Drache",
         "Himmelsgott-Drache"
     ]
 };
+
+const rarityOrder = ["common","rare","epic","legendary","mythic","ancient","celestial"];
 
 const rarityNames = {
     common:"COMMON",
@@ -734,7 +683,7 @@ const rarityNames = {
     celestial:"CELESTIAL"
 };
 
-const rarityEmojis = {
+const rarityEmoji = {
     common:"⚪",
     rare:"🟢",
     epic:"🔵",
@@ -744,198 +693,205 @@ const rarityEmojis = {
     celestial:"🌈"
 };
 
-const rarityColors = {
-    common:"#b8b8b8",
-    rare:"#36ff7a",
-    epic:"#4da3ff",
-    legendary:"#c75cff",
-    mythic:"#ffd700",
-    ancient:"#ff3838",
-    celestial:"#58fff4"
+const colors = {
+    common:"#b7b7b7",
+    rare:"#48ff8b",
+    epic:"#4aa3ff",
+    legendary:"#c45cff",
+    mythic:"#ffd34d",
+    ancient:"#ff3737",
+    celestial:"#6ffff5"
 };
 
-const achievementData = [
-    {id:"first", name:"Erstes Ei", desc:"Öffne dein erstes Ei.", check:()=>state.eggsOpened>=1},
-    {id:"ten", name:"Warm geworden", desc:"Öffne 10 Eier.", check:()=>state.eggsOpened>=10},
-    {id:"hundred", name:"Noch eins geht", desc:"Öffne 100 Eier.", check:()=>state.eggsOpened>=100},
-    {id:"rare", name:"Nicht schlecht", desc:"Finde einen Rare Drachen.", check:()=>state.found.rare>=1},
-    {id:"epic", name:"Jetzt wird es ernst", desc:"Finde einen Epic Drachen.", check:()=>state.found.epic>=1},
-    {id:"legendary", name:"Arena Boss", desc:"Finde einen Legendary Drachen.", check:()=>state.found.legendary>=1},
-    {id:"mythic", name:"Goldrausch", desc:"Finde einen Mythic Drachen.", check:()=>state.found.mythic>=1},
-    {id:"ancient", name:"Element-Meister", desc:"Finde einen Ancient Drachen.", check:()=>state.found.ancient>=1},
-    {id:"celestial", name:"Anime-Endboss", desc:"Finde einen Celestial Drachen.", check:()=>state.found.celestial>=1},
-    {id:"rich", name:"Reicher Cousin", desc:"Besitze 5000 Gold.", check:()=>state.gold>=5000}
-];
+const values = {
+    common:5,
+    rare:20,
+    epic:70,
+    legendary:250,
+    mythic:1000,
+    ancient:3500,
+    celestial:15000
+};
 
 function save(){
-    localStorage.setItem("dragonHatchSave", JSON.stringify(state));
+    localStorage.setItem("dragonCinematicSave", JSON.stringify(state));
 }
 
 function load(){
-    const saved = localStorage.getItem("dragonHatchSave");
-    if(saved){
+    const s = localStorage.getItem("dragonCinematicSave");
+    if(s){
         try{
-            const parsed = JSON.parse(saved);
-            state = {...state, ...parsed};
+            state = {...state, ...JSON.parse(s)};
         }catch(e){}
     }
 }
 
-function randomFrom(arr){
+function rand(arr){
     return arr[Math.floor(Math.random()*arr.length)];
 }
 
-function rollRarity(premium=false){
-    let roll = Math.random();
-    let bonus = state.luck / 100;
+function roll(premium=false){
+    let r = Math.random();
+    r -= state.luck * 0.002;
+    if(premium) r -= .16;
 
-    if(premium){
-        roll -= 0.12;
-    }
-
-    roll -= bonus * 0.22;
-
-    if(roll < 0.004) return "celestial";
-    if(roll < 0.018) return "ancient";
-    if(roll < 0.055) return "mythic";
-    if(roll < 0.115) return "legendary";
-    if(roll < 0.245) return "epic";
-    if(roll < 0.505) return "rare";
+    if(r < .004) return "celestial";
+    if(r < .018) return "ancient";
+    if(r < .055) return "mythic";
+    if(r < .125) return "legendary";
+    if(r < .260) return "epic";
+    if(r < .535) return "rare";
     return "common";
 }
 
 function hatch(cost=10, premium=false, silent=false){
     if(state.gold < cost){
-        toast("Zu wenig Gold!");
+        toast("Zu wenig Gold, Bruder.");
         return null;
     }
 
     state.gold -= cost;
-    state.eggsOpened++;
-    state.xp += premium ? 25 : 10;
+    state.opened++;
+    state.xp += premium ? 30 : 10;
 
-    while(state.xp >= state.level * 80){
-        state.xp -= state.level * 80;
+    while(state.xp >= state.level * 90){
+        state.xp -= state.level * 90;
         state.level++;
-        state.gold += 50 * state.level;
-        toast("Level Up! Du bist jetzt Level " + state.level + " und bekommst Bonus-Gold.");
+        state.gold += state.level * 80;
+        toast("Level Up! Level " + state.level + " erreicht.");
     }
 
-    const rarity = rollRarity(premium);
-    const name = randomFrom(dragons[rarity]);
-
+    const rarity = roll(premium);
     const item = {
         id:Date.now() + Math.random(),
-        name:name,
         rarity:rarity,
-        value:sellValues[rarity]
+        name:rand(dragons[rarity]),
+        value:values[rarity]
     };
 
     state.inventory.unshift(item);
     state.found[rarity]++;
 
     if(!silent){
-        animateHatch(item);
+        runCinematic(item);
     }
 
-    checkAchievements();
-    updateUI();
+    update();
     save();
-
     return item;
 }
 
-function animateHatch(item){
+function runCinematic(item){
     const egg = document.getElementById("egg");
-    const ray = document.getElementById("ray");
-    const result = document.getElementById("result");
-
-    result.innerHTML = "<div>Ei öffnet sich...</div>";
-    egg.classList.remove("shake");
+    egg.classList.remove("crack");
     void egg.offsetWidth;
-    egg.classList.add("shake");
+    egg.classList.add("crack");
 
-    ray.style.background = "radial-gradient(circle, " + rarityColors[item.rarity] + " 0%, transparent 55%)";
-    ray.classList.remove("show");
-    void ray.offsetWidth;
+    playSound(item.rarity);
+
+    const cinema = document.getElementById("cinema");
+    const light = document.getElementById("cinemaLight");
+    const eyes = document.getElementById("cinemaEyes");
+    const dragon = document.getElementById("cinemaDragon");
+    const smoke = document.getElementById("cinemaSmoke");
+    const goofy = document.getElementById("goofyRunner");
+
+    cinema.className = "";
+    void cinema.offsetWidth;
+    cinema.classList.add("show");
+
+    light.style.background =
+        "radial-gradient(circle, " + colors[item.rarity] + " 0%, transparent 45%)";
+
+    eyes.style.color = colors[item.rarity];
+    dragon.style.color = colors[item.rarity];
+    dragon.innerHTML = bigDragonSVG(item.rarity);
+
+    if(item.rarity === "common"){
+        goofy.style.display = "block";
+        dragon.style.display = "none";
+        smoke.style.display = "none";
+        eyes.style.display = "none";
+        document.body.classList.remove("screen-shake");
+    }else{
+        goofy.style.display = "none";
+        dragon.style.display = "block";
+        smoke.style.display = "block";
+        eyes.style.display = "block";
+    }
+
+    if(["legendary","mythic","ancient","celestial"].includes(item.rarity)){
+        document.body.classList.remove("screen-shake");
+        void document.body.offsetWidth;
+        document.body.classList.add("screen-shake");
+    }
 
     setTimeout(()=>{
-        ray.classList.add("show");
-        egg.innerHTML = item.rarity === "celestial" ? "🌌" :
-                        item.rarity === "ancient" ? "🔥" :
-                        item.rarity === "mythic" ? "👑" :
-                        "🐉";
-
-       result.innerHTML =
-    "<div class='dragon-card " + item.rarity + "'>" +
-        "<div class='dragon-art " + item.rarity + "'>" +
-            "<div class='dragon-aura'></div>" +
-            "<div class='dragon-wing left-wing'></div>" +
-            "<div class='dragon-wing right-wing'></div>" +
-            "<div class='dragon-tail'></div>" +
-            "<div class='dragon-body'>" +
-                "<div class='dragon-head'>" +
-                    "<div class='dragon-horn left-horn'></div>" +
-                    "<div class='dragon-horn right-horn'></div>" +
-                    "<div class='dragon-eye left-eye'></div>" +
-                    "<div class='dragon-eye right-eye'></div>" +
-                "</div>" +
-            "</div>" +
-        "</div>" +
-        "<div class='rarity-label " + item.rarity + "'>" +
-            rarityEmojis[item.rarity] + " " + rarityNames[item.rarity] +
-        "</div>" +
-        "<div class='dragon-name " + item.rarity + "'>" + item.name + "</div>" +
-        "<div style='margin-top:8px;color:#b9accb;'>Wert: " + item.value + " Gold</div>" +
-    "</div>";
-
-        if(["legendary","mythic","ancient","celestial"].includes(item.rarity)){
-            toast(rarityNames[item.rarity] + " DROP! " + item.name);
-        }
-
-        setTimeout(()=>{
-            egg.innerHTML = "🥚";
-        },900);
-
-    },700);
+        cinema.classList.remove("show");
+        document.body.classList.remove("screen-shake");
+        showResult(item);
+    }, item.rarity === "common" ? 2600 : 3300);
 }
 
-function multiHatch(){
+function showResult(item){
+    const result = document.getElementById("result");
+    result.innerHTML = `
+        <div class="card ${item.rarity}">
+            ${cardDragonSVG(item.rarity)}
+            <div class="rarity-pill ${item.rarity}">
+                ${rarityEmoji[item.rarity]} ${rarityNames[item.rarity]}
+            </div>
+            <div class="dragon-name ${item.rarity}">
+                ${item.name}
+            </div>
+            <div style="color:#bcb0cf;margin-top:8px;">
+                Wert: ${item.value} Gold
+            </div>
+        </div>
+    `;
+
+    if(item.rarity === "common"){
+        toast("Common Drop: " + item.name + " kam mit Pfandflaschen angerannt.");
+    }else if(item.rarity === "celestial"){
+        toast("CELESTIAL!!! GANZER BILDSCHIRM IST EXPLODIERT.");
+    }else{
+        toast(rarityNames[item.rarity] + " Drop: " + item.name);
+    }
+}
+
+function open5(){
     if(state.gold < 50){
         toast("Du brauchst 50 Gold.");
         return;
     }
 
     let best = null;
-    let order = ["common","rare","epic","legendary","mythic","ancient","celestial"];
 
     for(let i=0;i<5;i++){
-        let item = hatch(10,false,true);
-        if(!best || order.indexOf(item.rarity) > order.indexOf(best.rarity)){
+        const item = hatch(10,false,true);
+        if(!best || rarityOrder.indexOf(item.rarity) > rarityOrder.indexOf(best.rarity)){
             best = item;
         }
     }
 
-    animateHatch(best);
-    toast("5 Eier geöffnet. Bester Drop wird angezeigt.");
-    updateUI();
+    runCinematic(best);
+    update();
     save();
 }
 
-function premiumHatch(){
-    hatch(100,true,false);
+function royalEgg(){
+    hatch(150,true,false);
 }
 
 function sellItem(id){
-    const index = state.inventory.findIndex(x=>x.id===id);
-    if(index === -1) return;
+    const index = state.inventory.findIndex(x=>x.id === id);
+    if(index < 0) return;
 
     const item = state.inventory[index];
     state.gold += item.value;
     state.inventory.splice(index,1);
-
     toast(item.name + " verkauft für " + item.value + " Gold.");
-    updateUI();
+    update();
     save();
 }
 
@@ -954,14 +910,15 @@ function sellCommons(){
 
     state.gold += earned;
     toast(sold + " Common Drachen verkauft. +" + earned + " Gold.");
-    updateUI();
+    update();
     save();
 }
 
 function buyLuck(){
-    const cost = 150 + state.luckLevel * 250;
+    const cost = 200 + state.luckLevel * 300;
+
     if(state.gold < cost){
-        toast("Zu wenig Gold fürs Glücks-Amulett.");
+        toast("Nicht genug Gold für Luck.");
         return;
     }
 
@@ -969,134 +926,101 @@ function buyLuck(){
     state.luckLevel++;
     state.luck += 2;
 
-    toast("Luck erhöht! Neue Luck: " + state.luck + "%");
-    updateUI();
+    toast("Luck erhöht auf " + state.luck + "%.");
+    update();
     save();
 }
 
-function buyGoldBoost(){
+function goldBoost(){
     if(state.gold < 250){
         toast("Du brauchst 250 Gold.");
         return;
     }
 
     state.gold -= 250;
-    const reward = 400 + Math.floor(Math.random()*350);
+    const reward = 120 + Math.floor(Math.random() * 850);
     state.gold += reward;
 
-    toast("Gold-Booster aktiviert: +" + reward + " Gold.");
-    updateUI();
+    toast("Goldboost: +" + reward + " Gold.");
+    update();
     save();
 }
 
-function claimDaily(){
+function daily(){
     const now = Date.now();
-    const day = 24 * 60 * 60 * 1000;
+    const day = 86400000;
 
     if(now - state.lastDaily < day){
-        const left = day - (now - state.lastDaily);
-        const hours = Math.ceil(left / 1000 / 60 / 60);
-        toast("Tägliche Belohnung wieder in ca. " + hours + " Stunden.");
+        toast("Daily wurde heute schon geholt.");
         return;
     }
 
     state.lastDaily = now;
-    const reward = 150 + state.level * 25;
+    const reward = 350 + state.level * 50;
     state.gold += reward;
 
-    toast("Tägliche Belohnung: +" + reward + " Gold.");
-    updateUI();
+    toast("Daily Reward: +" + reward + " Gold.");
+    update();
     save();
 }
 
-function checkAchievements(){
-    achievementData.forEach(a=>{
-        if(!state.achievements[a.id] && a.check()){
-            state.achievements[a.id] = true;
-            state.gold += 75;
-            toast("Erfolg freigeschaltet: " + a.name + " +75 Gold");
-        }
-    });
-}
-
-function updateUI(){
+function update(){
     document.getElementById("gold").textContent = state.gold;
-    document.getElementById("eggsOpened").textContent = state.eggsOpened;
+    document.getElementById("opened").textContent = state.opened;
     document.getElementById("level").textContent = state.level;
     document.getElementById("luck").textContent = state.luck + "%";
-    document.getElementById("luckCost").textContent = 150 + state.luckLevel * 250;
+    document.getElementById("luckCost").textContent = 200 + state.luckLevel * 300;
 
-    document.getElementById("hatchBtn").disabled = state.gold < 10;
-    document.getElementById("multiBtn").disabled = state.gold < 50;
+    document.getElementById("openBtn").disabled = state.gold < 10;
+    document.getElementById("open5Btn").disabled = state.gold < 50;
 
     renderInventory();
-    renderAchievements();
     renderStats();
 }
 
 function renderInventory(){
-    const inv = document.getElementById("inventory");
+    const box = document.getElementById("inventory");
 
     if(state.inventory.length === 0){
-        inv.innerHTML = "<p style='color:#b9accb;'>Noch keine Drachen. Öffne dein erstes Ei.</p>";
+        box.innerHTML = `<p style="color:#bcb0cf;">Noch keine Drachen. Öffne dein erstes Ei.</p>`;
         return;
     }
 
-    inv.innerHTML = state.inventory.map(item=>{
-        return `
-            <div class="item">
-                <div>
-                    <div class="${item.rarity}" style="font-weight:900;">
-                        ${rarityEmojis[item.rarity]} ${item.name}
-                    </div>
-                    <small>${rarityNames[item.rarity]} • Wert: ${item.value} Gold</small>
-                </div>
-                <button onclick="sellItem(${item.id})">Verkaufen</button>
+    box.innerHTML = state.inventory.map(item=>`
+        <div class="item">
+            <div>
+                <b class="${item.rarity}">
+                    ${rarityEmoji[item.rarity]} ${item.name}
+                </b>
+                <small>${rarityNames[item.rarity]} • Wert ${item.value} Gold</small>
             </div>
-        `;
-    }).join("");
-}
-
-function renderAchievements(){
-    const box = document.getElementById("achievements");
-    box.innerHTML = achievementData.map(a=>{
-        const done = !!state.achievements[a.id];
-        return `
-            <div class="achievement ${done ? "done" : ""}">
-                <b>${done ? "✅" : "⬜"} ${a.name}</b>
-                <div style="color:#b9accb;font-size:14px;margin-top:4px;">${a.desc}</div>
-            </div>
-        `;
-    }).join("");
+            <button onclick="sellItem(${item.id})">Sell</button>
+        </div>
+    `).join("");
 }
 
 function renderStats(){
     const box = document.getElementById("statsList");
-    box.innerHTML = `
-        <div class="item"><b>Common</b><span class="badge common">${state.found.common}</span></div>
-        <div class="item"><b>Rare</b><span class="badge rare">${state.found.rare}</span></div>
-        <div class="item"><b>Epic</b><span class="badge epic">${state.found.epic}</span></div>
-        <div class="item"><b>Legendary</b><span class="badge legendary">${state.found.legendary}</span></div>
-        <div class="item"><b>Mythic</b><span class="badge mythic">${state.found.mythic}</span></div>
-        <div class="item"><b>Ancient</b><span class="badge ancient">${state.found.ancient}</span></div>
-        <div class="item"><b>Celestial</b><span class="badge celestial">${state.found.celestial}</span></div>
-        <div class="item"><b>Inventargröße</b><span class="badge">${state.inventory.length}</span></div>
-    `;
+
+    box.innerHTML = rarityOrder.map(r=>`
+        <div class="item">
+            <b class="${r}">${rarityEmoji[r]} ${rarityNames[r]}</b>
+            <span>${state.found[r]}</span>
+        </div>
+    `).join("");
 }
 
-function showTab(tab){
-    document.getElementById("inventoryTab").style.display = tab === "inventory" ? "block" : "none";
-    document.getElementById("shopTab").style.display = tab === "shop" ? "block" : "none";
-    document.getElementById("achievementsTab").style.display = tab === "achievements" ? "block" : "none";
-    document.getElementById("statsTab").style.display = tab === "stats" ? "block" : "none";
+function tab(name){
+    document.getElementById("invTab").style.display = name === "inv" ? "block" : "none";
+    document.getElementById("shopTab").style.display = name === "shop" ? "block" : "none";
+    document.getElementById("statsTab").style.display = name === "stats" ? "block" : "none";
 
     document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
     const tabs = document.querySelectorAll(".tab");
 
-    if(tab === "inventory") tabs[0].classList.add("active");
-    if(tab === "shop") tabs[1].classList.add("active");
-    if(tab === "achievements") tabs[2].classList.add("active");
-    if(tab === "stats") tabs[3].classList.add("active");
+    if(name === "inv") tabs[0].classList.add("active");
+    if(name === "shop") tabs[1].classList.add("active");
+    if(name === "stats") tabs[2].classList.add("active");
 }
 
 function toast(msg){
@@ -1104,20 +1028,138 @@ function toast(msg){
     t.textContent = msg;
     t.classList.add("show");
 
-    setTimeout(()=>{
-        t.classList.remove("show");
-    },2600);
+    setTimeout(()=>t.classList.remove("show"),2600);
 }
 
-document.getElementById("hatchBtn").addEventListener("click",()=>hatch(10,false,false));
-document.getElementById("multiBtn").addEventListener("click",multiHatch);
-document.getElementById("sellCommonsBtn").addEventListener("click",sellCommons);
-document.getElementById("claimBtn").addEventListener("click",claimDaily);
+function playSound(rarity){
+    try{
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        const ctx = new AudioCtx();
+
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        let freq = 180;
+
+        if(rarity === "rare") freq = 260;
+        if(rarity === "epic") freq = 340;
+        if(rarity === "legendary") freq = 430;
+        if(rarity === "mythic") freq = 520;
+        if(rarity === "ancient") freq = 150;
+        if(rarity === "celestial") freq = 680;
+
+        osc.type = rarity === "common" ? "square" : "sawtooth";
+        osc.frequency.setValueAtTime(freq, now);
+        osc.frequency.exponentialRampToValueAtTime(freq * 2.2, now + .35);
+
+        gain.gain.setValueAtTime(.0001, now);
+        gain.gain.exponentialRampToValueAtTime(.18, now + .06);
+        gain.gain.exponentialRampToValueAtTime(.0001, now + .7);
+
+        osc.start(now);
+        osc.stop(now + .75);
+
+        if(["mythic","ancient","celestial"].includes(rarity)){
+            const osc2 = ctx.createOscillator();
+            const gain2 = ctx.createGain();
+
+            osc2.connect(gain2);
+            gain2.connect(ctx.destination);
+
+            osc2.type = "sine";
+            osc2.frequency.setValueAtTime(freq / 2, now);
+            osc2.frequency.exponentialRampToValueAtTime(freq * 1.5, now + 1.1);
+
+            gain2.gain.setValueAtTime(.0001, now);
+            gain2.gain.exponentialRampToValueAtTime(.16, now + .1);
+            gain2.gain.exponentialRampToValueAtTime(.0001, now + 1.3);
+
+            osc2.start(now);
+            osc2.stop(now + 1.35);
+        }
+    }catch(e){}
+}
+
+function cardDragonSVG(rarity){
+    const c = colors[rarity];
+
+    if(rarity === "common"){
+        return `
+        <svg class="dragon-svg common" viewBox="0 0 260 220">
+            <text x="34" y="135" font-size="80">🐉</text>
+            <text x="120" y="130" font-size="48">🛒</text>
+            <text x="165" y="126" font-size="45">🥤</text>
+            <text x="190" y="160" font-size="38">🥤</text>
+        </svg>`;
+    }
+
+    return `
+    <svg class="dragon-svg ${rarity}" viewBox="0 0 260 220">
+        <defs>
+          <radialGradient id="g${rarity}">
+            <stop offset="0%" stop-color="white"/>
+            <stop offset="35%" stop-color="${c}"/>
+            <stop offset="100%" stop-color="#111"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="130" cy="116" rx="95" ry="76" fill="url(#g${rarity})" opacity=".25"/>
+        <path d="M72 105 C28 64, 19 138, 78 154 C61 132, 70 120, 102 128 Z" fill="${c}" opacity=".75"/>
+        <path d="M188 105 C232 64, 241 138, 182 154 C199 132, 190 120, 158 128 Z" fill="${c}" opacity=".75"/>
+        <path d="M90 110 C95 65, 168 65, 174 112 C181 160, 142 181, 112 171 C91 164, 84 139, 90 110 Z" fill="${c}"/>
+        <path d="M105 69 C105 38, 155 38, 156 70 C158 93, 107 93, 105 69 Z" fill="${c}"/>
+        <path d="M112 40 L123 10 L132 43 Z" fill="#fff1b8"/>
+        <path d="M146 40 L158 10 L166 43 Z" fill="#fff1b8"/>
+        <circle cx="120" cy="62" r="6" fill="#071010"/>
+        <circle cx="145" cy="62" r="6" fill="#071010"/>
+        <path d="M132 81 C138 89, 148 88, 154 80" stroke="#111" stroke-width="4" fill="none"/>
+        <path d="M161 150 C205 160, 209 196, 235 190" stroke="${c}" stroke-width="18" fill="none" stroke-linecap="round"/>
+    </svg>`;
+}
+
+function bigDragonSVG(rarity){
+    const c = colors[rarity];
+
+    return `
+    <svg width="520" height="390" viewBox="0 0 520 390" style="filter:drop-shadow(0 0 55px ${c});">
+        <defs>
+            <radialGradient id="aura">
+                <stop offset="0%" stop-color="${c}" stop-opacity=".85"/>
+                <stop offset="65%" stop-color="${c}" stop-opacity=".15"/>
+                <stop offset="100%" stop-color="${c}" stop-opacity="0"/>
+            </radialGradient>
+        </defs>
+        <ellipse cx="260" cy="205" rx="245" ry="160" fill="url(#aura)"/>
+        <path d="M142 180 C58 76, 20 228, 146 254 C108 216, 128 190, 205 207 Z" fill="${c}" opacity=".8">
+            <animateTransform attributeName="transform" type="rotate" values="-5 150 200;8 150 200;-5 150 200" dur=".7s" repeatCount="indefinite"/>
+        </path>
+        <path d="M378 180 C462 76, 500 228, 374 254 C412 216, 392 190, 315 207 Z" fill="${c}" opacity=".8">
+            <animateTransform attributeName="transform" type="rotate" values="5 370 200;-8 370 200;5 370 200" dur=".7s" repeatCount="indefinite"/>
+        </path>
+        <path d="M190 190 C188 92, 330 92, 332 192 C336 286, 250 324, 210 286 C184 261, 184 225, 190 190 Z" fill="${c}"/>
+        <path d="M215 95 C210 38, 310 38, 305 97 C300 133, 220 133, 215 95 Z" fill="${c}"/>
+        <path d="M232 50 L250 2 L266 55 Z" fill="#fff2b8"/>
+        <path d="M284 50 L305 2 L316 58 Z" fill="#fff2b8"/>
+        <ellipse cx="242" cy="88" rx="12" ry="7" fill="#020202"/>
+        <ellipse cx="282" cy="88" rx="12" ry="7" fill="#020202"/>
+        <path d="M260 124 C278 145, 302 138, 316 118" stroke="#080808" stroke-width="8" fill="none"/>
+        <path d="M325 260 C420 290, 430 354, 493 334" stroke="${c}" stroke-width="34" fill="none" stroke-linecap="round">
+            <animate attributeName="d" values="M325 260 C420 290, 430 354, 493 334;M325 260 C410 245, 430 344, 493 310;M325 260 C420 290, 430 354, 493 334" dur="1s" repeatCount="indefinite"/>
+        </path>
+    </svg>`;
+}
+
+document.getElementById("openBtn").addEventListener("click",()=>hatch(10,false,false));
+document.getElementById("open5Btn").addEventListener("click",open5);
+document.getElementById("sellCommonBtn").addEventListener("click",sellCommons);
+document.getElementById("dailyBtn").addEventListener("click",daily);
 document.getElementById("egg").addEventListener("click",()=>hatch(10,false,false));
 
 load();
-checkAchievements();
-updateUI();
+update();
 </script>
 
 </body>
