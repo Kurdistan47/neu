@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dragon Hatch Ultimate</title>
+
+<style>
+:root{
+    --bg1:#10051f;
+    --bg2:#1a0b2e;
+    --gold:#ffd700;
+    --dark:#12091f;
+    --panel:rgba(255,255,255,0.08);
+    --panel2:rgba(255,255,255,0.13);
+    --text:#ffffff;
+    --muted:#b9accb;
+    --common:#b8b8b8;
+    --rare:#36ff7a;
+    --epic:#4da3ff;
+    --legendary:#c75cff;
+    --mythic:#ffd700;
+    --ancient:#ff3838;
+    --celestial:#58fff4;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at top, #3c1577 0%, transparent 35%),
+        linear-gradient(135deg,var(--bg1),var(--bg2),#05020a);
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+header{
+    padding:22px;
+    text-align:center;
+    background:rgba(0,0,0,0.25);
+    border-bottom:1px solid rgba(255,255,255,0.1);
+    position:sticky;
+    top:0;
+    z-index:10;
+    backdrop-filter:blur(12px);
+}
+
+h1{
+    margin:0;
+    font-size:34px;
+    letter-spacing:1px;
+}
+
+.subtitle{
+    color:var(--muted);
+    margin-top:8px;
+    font-size:14px;
+}
+
+.statsbar{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    max-width:950px;
+    margin:18px auto 0;
+}
+
+.stat{
+    background:var(--panel);
+    padding:12px;
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,0.09);
+}
+
+.stat b{
+    display:block;
+    color:var(--gold);
+    font-size:20px;
+}
+
+main{
+    max-width:1150px;
+    margin:0 auto;
+    padding:22px;
+}
+
+.game-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:22px;
+}
+
+.panel{
+    background:var(--panel);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:24px;
+    padding:22px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.35);
+}
+
+.egg-area{
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    min-height:560px;
+}
+
+.egg{
+    font-size:145px;
+    margin:24px 0 8px;
+    display:inline-block;
+    filter:drop-shadow(0 0 30px rgba(255,215,0,0.5));
+    cursor:pointer;
+    user-select:none;
+    transition:transform .2s;
+}
+
+.egg:hover{
+    transform:scale(1.05);
+}
+
+.egg.shake{
+    animation:shake .7s ease-in-out;
+}
+
+@keyframes shake{
+    0%{transform:translateX(0) rotate(0deg) scale(1);}
+    15%{transform:translateX(-12px) rotate(-8deg) scale(1.05);}
+    30%{transform:translateX(12px) rotate(8deg) scale(1.07);}
+    45%{transform:translateX(-10px) rotate(-6deg) scale(1.08);}
+    60%{transform:translateX(10px) rotate(6deg) scale(1.08);}
+    75%{transform:translateX(-5px) rotate(-3deg) scale(1.05);}
+    100%{transform:translateX(0) rotate(0deg) scale(1);}
+}
+
+.ray{
+    position:absolute;
+    inset:-40%;
+    opacity:0;
+    pointer-events:none;
+    transform:scale(0.5);
+}
+
+.ray.show{
+    animation:rayFlash 1.25s ease-out;
+}
+
+@keyframes rayFlash{
+    0%{opacity:0; transform:scale(0.4);}
+    20%{opacity:1; transform:scale(1);}
+    100%{opacity:0; transform:scale(1.5);}
+}
+
+.result{
+    min-height:145px;
+    margin-top:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+}
+
+.dragon-name{
+    font-size:30px;
+    font-weight:900;
+    margin-top:8px;
+}
+
+.rarity-label{
+    padding:8px 14px;
+    border-radius:999px;
+    background:rgba(255,255,255,0.12);
+    font-weight:bold;
+    margin-top:8px;
+}
+
+button{
+    border:none;
+    border-radius:16px;
+    padding:15px 20px;
+    font-weight:800;
+    font-size:16px;
+    cursor:pointer;
+    transition:.2s;
+    color:white;
+    background:#6d35ff;
+}
+
+button:hover{
+    transform:translateY(-2px);
+    filter:brightness(1.1);
+}
+
+button:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+    transform:none;
+}
+
+.primary{
+    background:linear-gradient(135deg,#ffcc00,#ff8c00);
+    color:#1b1000;
+    box-shadow:0 0 24px rgba(255,183,0,0.35);
+}
+
+.danger{
+    background:linear-gradient(135deg,#ff3c3c,#9e1212);
+}
+
+.green{
+    background:linear-gradient(135deg,#19d66b,#087c3a);
+}
+
+.blue{
+    background:linear-gradient(135deg,#2997ff,#1739b7);
+}
+
+.purple{
+    background:linear-gradient(135deg,#a84dff,#5518b8);
+}
+
+.controls{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:12px;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+.price{
+    color:var(--muted);
+    margin-top:10px;
+    font-size:14px;
+}
+
+.tabs{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:16px;
+}
+
+.tab{
+    padding:10px 14px;
+    background:var(--panel2);
+    border-radius:999px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.tab.active{
+    background:var(--gold);
+    color:#1a1200;
+}
+
+.list{
+    max-height:420px;
+    overflow:auto;
+    padding-right:8px;
+}
+
+.item{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.08);
+    padding:13px;
+    margin-bottom:10px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.item small{
+    color:var(--muted);
+}
+
+.badge{
+    padding:5px 10px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:900;
+    background:rgba(255,255,255,0.13);
+}
+
+.common{color:var(--common);}
+.rare{color:var(--rare);}
+.epic{color:var(--epic);}
+.legendary{color:var(--legendary);}
+.mythic{color:var(--mythic);}
+.ancient{color:var(--ancient);}
+.celestial{color:var(--celestial);}
+
+.shop-card{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.08);
+    padding:15px;
+    border-radius:18px;
+    margin-bottom:12px;
+}
+
+.shop-card h3{
+    margin:0 0 6px;
+}
+
+.shop-card p{
+    margin:0 0 10px;
+    color:var(--muted);
+}
+
+.achievement{
+    padding:12px;
+    border-radius:16px;
+    margin-bottom:10px;
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.achievement.done{
+    background:rgba(255,215,0,0.12);
+    border-color:rgba(255,215,0,0.35);
+}
+
+.toast{
+    position:fixed;
+    bottom:18px;
+    left:50%;
+    transform:translateX(-50%) translateY(120px);
+    background:#111;
+    color:white;
+    border:1px solid rgba(255,255,255,0.15);
+    padding:15px 20px;
+    border-radius:18px;
+    box-shadow:0 15px 35px rgba(0,0,0,.5);
+    z-index:999;
+    transition:.35s;
+    font-weight:bold;
+}
+
+.toast.show{
+    transform:translateX(-50%) translateY(0);
+}
+
+.footer-note{
+    text-align:center;
+    color:var(--muted);
+    margin:30px 0;
+    font-size:13px;
+}
+
+@media(max-width:850px){
+    .game-grid{
+        grid-template-columns:1fr;
+    }
+
+    .statsbar{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    h1{
+        font-size:28px;
+    }
+
+    .egg{
+        font-size:115px;
+    }
+
+    .dragon-name{
+        font-size:24px;
+    }
+
+    .controls{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🐉 Dragon Hatch Ultimate</h1>
+    <div class="subtitle">Öffne Eier, sammle Drachen, verkaufe Lappen-Drops und jag Celestial Legenden.</div>
+
+    <div class="statsbar">
+        <div class="stat">
+            <b id="gold">100</b>
+            Gold
+        </div>
+        <div class="stat">
+            <b id="eggsOpened">0</b>
+            Eier geöffnet
+        </div>
+        <div class="stat">
+            <b id="level">1</b>
+            Level
+        </div>
+        <div class="stat">
+            <b id="luck">0%</b>
+            Luck Bonus
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="game-grid">
+
+        <section class="panel egg-area">
+            <div id="ray" class="ray"></div>
+
+            <h2>🥚 Drachen-Ei</h2>
+            <div id="egg" class="egg">🥚</div>
+
+            <div class="controls">
+                <button id="hatchBtn" class="primary">Ei öffnen - 10 Gold</button>
+                <button id="multiBtn" class="blue">5x öffnen - 50 Gold</button>
+                <button id="sellCommonsBtn" class="green">Alle Common verkaufen</button>
+                <button id="claimBtn" class="purple">Tägliche Belohnung</button>
+            </div>
+
+            <div class="price">
+                Verkauf: Common 5g, Rare 18g, Epic 55g, Legendary 180g, Mythic 750g, Ancient 2500g, Celestial 10000g
+            </div>
+
+            <div id="result" class="result">
+                <div>Tippe auf das Ei oder den Button.</div>
+                <div class="rarity-label">Viel Glück, Bruder 🐉</div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('inventory')">Inventar</div>
+                <div class="tab" onclick="showTab('shop')">Shop</div>
+                <div class="tab" onclick="showTab('achievements')">Erfolge</div>
+                <div class="tab" onclick="showTab('stats')">Stats</div>
+            </div>
+
+            <div id="inventoryTab">
+                <h2>📦 Inventar</h2>
+                <div id="inventory" class="list"></div>
+            </div>
+
+            <div id="shopTab" style="display:none;">
+                <h2>🛒 Shop</h2>
+
+                <div class="shop-card">
+                    <h3>🍀 Glücks-Amulett</h3>
+                    <p>Erhöht deine Chance auf seltene Drachen dauerhaft.</p>
+                    <button onclick="buyLuck()">Kaufen: <span id="luckCost">150</span> Gold</button>
+                </div>
+
+                <div class="shop-card">
+                    <h3>🥚 Premium Ei</h3>
+                    <p>Teurer, aber bessere Chancen auf Epic+.</p>
+                    <button onclick="premiumHatch()">Öffnen: 100 Gold</button>
+                </div>
+
+                <div class="shop-card">
+                    <h3>💰 Gold-Booster</h3>
+                    <p>Du bekommst sofort Bonus-Gold.</p>
+                    <button onclick="buyGoldBoost()">Kaufen: 250 Gold</button>
+                </div>
+            </div>
+
+            <div id="achievementsTab" style="display:none;">
+                <h2>🏆 Erfolge</h2>
+                <div id="achievements"></div>
+            </div>
+
+            <div id="statsTab" style="display:none;">
+                <h2>📊 Statistik</h2>
+                <div id="statsList"></div>
+            </div>
+        </section>
+
+    </div>
+
+    <div class="footer-note">
+        Speicherstand wird automatisch im Browser gespeichert. Wenn du am selben Gerät wieder öffnest, ist dein Fortschritt noch da.
+    </div>
+</main>
+
+<div id="toast" class="toast"></div>
+
+<script>
+let state = {
+    gold:10000000000,
+    eggsOpened:0,
+    level:1,
+    xp:0,
+    luck:0,
+    luckLevel:0,
+    inventory:[],
+    lastDaily:0,
+    found:{
+        common:0,
+        rare:0,
+        epic:0,
+        legendary:0,
+        mythic:0,
+        ancient:0,
+        celestial:0
+    },
+    achievements:{}
+};
+
+const eggCost = 10;
+
+const sellValues = {
+    common:5,
+    rare:18,
+    epic:55,
+    legendary:180,
+    mythic:750,
+    ancient:2500,
+    celestial:10000
+};
+
+const dragons = {
+    common:[
+        "Müsliriegel-Drache",
+        "Schlafsack-Drache",
+        "Dosencola-Drache",
+        "WLAN-Schnorrer-Drache",
+        "Einkaufswagen-Drache"
+    ],
+    rare:[
+        "Trendtanz-Drache",
+        "Livestream-Drache",
+        "Selfie-Drache",
+        "Viralclip-Drache",
+        "Hashtag-Drache"
+    ],
+    epic:[
+        "WhatsApp-Mastermind-Drache",
+        "Erfolgsseminar-Drache",
+        "Luxusmietwagen-Drache",
+        "Krypto-Coach-Drache",
+        "Passives-Einkommen-Drache"
+    ],
+    legendary:[
+        "Titan-Faust-Drache",
+        "Oktagon-Drache",
+        "Champion-Drache",
+        "Berserker-Drache",
+        "Gladiator-Drache"
+    ],
+    mythic:[
+        "Goldkronen-Drache",
+        "Sonnenbarren-Drache",
+        "Diamantflügel-Drache",
+        "Imperator-Drache",
+        "Schatzkammer-Drache"
+    ],
+    ancient:[
+        "Feuersturm-Drache",
+        "Tsunami-Drache",
+        "Himmelswind-Drache",
+        "Erdbeben-Drache",
+        "Avatar-Drache"
+    ],
+    celestial:[
+        "Sternenkaiser-Drache",
+        "Unendlicher-Krieger-Drache",
+        "Galaxien-Fürst-Drache",
+        "Leerenkönig-Drache",
+        "Himmelsgott-Drache"
+    ]
+};
+
+const rarityNames = {
+    common:"COMMON",
+    rare:"RARE",
+    epic:"EPIC",
+    legendary:"LEGENDARY",
+    mythic:"MYTHIC",
+    ancient:"ANCIENT",
+    celestial:"CELESTIAL"
+};
+
+const rarityEmojis = {
+    common:"⚪",
+    rare:"🟢",
+    epic:"🔵",
+    legendary:"🟣",
+    mythic:"🟡",
+    ancient:"🔴",
+    celestial:"🌈"
+};
+
+const rarityColors = {
+    common:"#b8b8b8",
+    rare:"#36ff7a",
+    epic:"#4da3ff",
+    legendary:"#c75cff",
+    mythic:"#ffd700",
+    ancient:"#ff3838",
+    celestial:"#58fff4"
+};
+
+const achievementData = [
+    {id:"first", name:"Erstes Ei", desc:"Öffne dein erstes Ei.", check:()=>state.eggsOpened>=1},
+    {id:"ten", name:"Warm geworden", desc:"Öffne 10 Eier.", check:()=>state.eggsOpened>=10},
+    {id:"hundred", name:"Noch eins geht", desc:"Öffne 100 Eier.", check:()=>state.eggsOpened>=100},
+    {id:"rare", name:"Nicht schlecht", desc:"Finde einen Rare Drachen.", check:()=>state.found.rare>=1},
+    {id:"epic", name:"Jetzt wird es ernst", desc:"Finde einen Epic Drachen.", check:()=>state.found.epic>=1},
+    {id:"legendary", name:"Arena Boss", desc:"Finde einen Legendary Drachen.", check:()=>state.found.legendary>=1},
+    {id:"mythic", name:"Goldrausch", desc:"Finde einen Mythic Drachen.", check:()=>state.found.mythic>=1},
+    {id:"ancient", name:"Element-Meister", desc:"Finde einen Ancient Drachen.", check:()=>state.found.ancient>=1},
+    {id:"celestial", name:"Anime-Endboss", desc:"Finde einen Celestial Drachen.", check:()=>state.found.celestial>=1},
+    {id:"rich", name:"Reicher Cousin", desc:"Besitze 5000 Gold.", check:()=>state.gold>=5000}
+];
+
+function save(){
+    localStorage.setItem("dragonHatchSave", JSON.stringify(state));
+}
+
+function load(){
+    const saved = localStorage.getItem("dragonHatchSave");
+    if(saved){
+        try{
+            const parsed = JSON.parse(saved);
+            state = {...state, ...parsed};
+        }catch(e){}
+    }
+}
+
+function randomFrom(arr){
+    return arr[Math.floor(Math.random()*arr.length)];
+}
+
+function rollRarity(premium=false){
+    let roll = Math.random();
+    let bonus = state.luck / 100;
+
+    if(premium){
+        roll -= 0.12;
+    }
+
+    roll -= bonus * 0.22;
+
+    if(roll < 0.004) return "celestial";
+    if(roll < 0.018) return "ancient";
+    if(roll < 0.055) return "mythic";
+    if(roll < 0.115) return "legendary";
+    if(roll < 0.245) return "epic";
+    if(roll < 0.505) return "rare";
+    return "common";
+}
+
+function hatch(cost=10, premium=false, silent=false){
+    if(state.gold < cost){
+        toast("Zu wenig Gold!");
+        return null;
+    }
+
+    state.gold -= cost;
+    state.eggsOpened++;
+    state.xp += premium ? 25 : 10;
+
+    while(state.xp >= state.level * 80){
+        state.xp -= state.level * 80;
+        state.level++;
+        state.gold += 50 * state.level;
+        toast("Level Up! Du bist jetzt Level " + state.level + " und bekommst Bonus-Gold.");
+    }
+
+    const rarity = rollRarity(premium);
+    const name = randomFrom(dragons[rarity]);
+
+    const item = {
+        id:Date.now() + Math.random(),
+        name:name,
+        rarity:rarity,
+        value:sellValues[rarity]
+    };
+
+    state.inventory.unshift(item);
+    state.found[rarity]++;
+
+    if(!silent){
+        animateHatch(item);
+    }
+
+    checkAchievements();
+    updateUI();
+    save();
+
+    return item;
+}
+
+function animateHatch(item){
+    const egg = document.getElementById("egg");
+    const ray = document.getElementById("ray");
+    const result = document.getElementById("result");
+
+    result.innerHTML = "<div>Ei öffnet sich...</div>";
+    egg.classList.remove("shake");
+    void egg.offsetWidth;
+    egg.classList.add("shake");
+
+    ray.style.background = "radial-gradient(circle, " + rarityColors[item.rarity] + " 0%, transparent 55%)";
+    ray.classList.remove("show");
+    void ray.offsetWidth;
+
+    setTimeout(()=>{
+        ray.classList.add("show");
+        egg.innerHTML = item.rarity === "celestial" ? "🌌" :
+                        item.rarity === "ancient" ? "🔥" :
+                        item.rarity === "mythic" ? "👑" :
+                        "🐉";
+
+        result.innerHTML =
+            "<div class='rarity-label " + item.rarity + "'>" +
+            rarityEmojis[item.rarity] + " " + rarityNames[item.rarity] +
+            "</div>" +
+            "<div class='dragon-name " + item.rarity + "'>" + item.name + "</div>" +
+            "<div style='margin-top:8px;color:#b9accb;'>Wert: " + item.value + " Gold</div>";
+
+        if(["legendary","mythic","ancient","celestial"].includes(item.rarity)){
+            toast(rarityNames[item.rarity] + " DROP! " + item.name);
+        }
+
+        setTimeout(()=>{
+            egg.innerHTML = "🥚";
+        },900);
+
+    },700);
+}
+
+function multiHatch(){
+    if(state.gold < 50){
+        toast("Du brauchst 50 Gold.");
+        return;
+    }
+
+    let best = null;
+    let order = ["common","rare","epic","legendary","mythic","ancient","celestial"];
+
+    for(let i=0;i<5;i++){
+        let item = hatch(10,false,true);
+        if(!best || order.indexOf(item.rarity) > order.indexOf(best.rarity)){
+            best = item;
+        }
+    }
+
+    animateHatch(best);
+    toast("5 Eier geöffnet. Bester Drop wird angezeigt.");
+    updateUI();
+    save();
+}
+
+function premiumHatch(){
+    hatch(100,true,false);
+}
+
+function sellItem(id){
+    const index = state.inventory.findIndex(x=>x.id===id);
+    if(index === -1) return;
+
+    const item = state.inventory[index];
+    state.gold += item.value;
+    state.inventory.splice(index,1);
+
+    toast(item.name + " verkauft für " + item.value + " Gold.");
+    updateUI();
+    save();
+}
+
+function sellCommons(){
+    let sold = 0;
+    let earned = 0;
+
+    state.inventory = state.inventory.filter(item=>{
+        if(item.rarity === "common"){
+            sold++;
+            earned += item.value;
+            return false;
+        }
+        return true;
+    });
+
+    state.gold += earned;
+    toast(sold + " Common Drachen verkauft. +" + earned + " Gold.");
+    updateUI();
+    save();
+}
+
+function buyLuck(){
+    const cost = 150 + state.luckLevel * 250;
+    if(state.gold < cost){
+        toast("Zu wenig Gold fürs Glücks-Amulett.");
+        return;
+    }
+
+    state.gold -= cost;
+    state.luckLevel++;
+    state.luck += 2;
+
+    toast("Luck erhöht! Neue Luck: " + state.luck + "%");
+    updateUI();
+    save();
+}
+
+function buyGoldBoost(){
+    if(state.gold < 250){
+        toast("Du brauchst 250 Gold.");
+        return;
+    }
+
+    state.gold -= 250;
+    const reward = 400 + Math.floor(Math.random()*350);
+    state.gold += reward;
+
+    toast("Gold-Booster aktiviert: +" + reward + " Gold.");
+    updateUI();
+    save();
+}
+
+function claimDaily(){
+    const now = Date.now();
+    const day = 24 * 60 * 60 * 1000;
+
+    if(now - state.lastDaily < day){
+        const left = day - (now - state.lastDaily);
+        const hours = Math.ceil(left / 1000 / 60 / 60);
+        toast("Tägliche Belohnung wieder in ca. " + hours + " Stunden.");
+        return;
+    }
+
+    state.lastDaily = now;
+    const reward = 150 + state.level * 25;
+    state.gold += reward;
+
+    toast("Tägliche Belohnung: +" + reward + " Gold.");
+    updateUI();
+    save();
+}
+
+function checkAchievements(){
+    achievementData.forEach(a=>{
+        if(!state.achievements[a.id] && a.check()){
+            state.achievements[a.id] = true;
+            state.gold += 75;
+            toast("Erfolg freigeschaltet: " + a.name + " +75 Gold");
+        }
+    });
+}
+
+function updateUI(){
+    document.getElementById("gold").textContent = state.gold;
+    document.getElementById("eggsOpened").textContent = state.eggsOpened;
+    document.getElementById("level").textContent = state.level;
+    document.getElementById("luck").textContent = state.luck + "%";
+    document.getElementById("luckCost").textContent = 150 + state.luckLevel * 250;
+
+    document.getElementById("hatchBtn").disabled = state.gold < 10;
+    document.getElementById("multiBtn").disabled = state.gold < 50;
+
+    renderInventory();
+    renderAchievements();
+    renderStats();
+}
+
+function renderInventory(){
+    const inv = document.getElementById("inventory");
+
+    if(state.inventory.length === 0){
+        inv.innerHTML = "<p style='color:#b9accb;'>Noch keine Drachen. Öffne dein erstes Ei.</p>";
+        return;
+    }
+
+    inv.innerHTML = state.inventory.map(item=>{
+        return `
+            <div class="item">
+                <div>
+                    <div class="${item.rarity}" style="font-weight:900;">
+                        ${rarityEmojis[item.rarity]} ${item.name}
+                    </div>
+                    <small>${rarityNames[item.rarity]} • Wert: ${item.value} Gold</small>
+                </div>
+                <button onclick="sellItem(${item.id})">Verkaufen</button>
+            </div>
+        `;
+    }).join("");
+}
+
+function renderAchievements(){
+    const box = document.getElementById("achievements");
+    box.innerHTML = achievementData.map(a=>{
+        const done = !!state.achievements[a.id];
+        return `
+            <div class="achievement ${done ? "done" : ""}">
+                <b>${done ? "✅" : "⬜"} ${a.name}</b>
+                <div style="color:#b9accb;font-size:14px;margin-top:4px;">${a.desc}</div>
+            </div>
+        `;
+    }).join("");
+}
+
+function renderStats(){
+    const box = document.getElementById("statsList");
+    box.innerHTML = `
+        <div class="item"><b>Common</b><span class="badge common">${state.found.common}</span></div>
+        <div class="item"><b>Rare</b><span class="badge rare">${state.found.rare}</span></div>
+        <div class="item"><b>Epic</b><span class="badge epic">${state.found.epic}</span></div>
+        <div class="item"><b>Legendary</b><span class="badge legendary">${state.found.legendary}</span></div>
+        <div class="item"><b>Mythic</b><span class="badge mythic">${state.found.mythic}</span></div>
+        <div class="item"><b>Ancient</b><span class="badge ancient">${state.found.ancient}</span></div>
+        <div class="item"><b>Celestial</b><span class="badge celestial">${state.found.celestial}</span></div>
+        <div class="item"><b>Inventargröße</b><span class="badge">${state.inventory.length}</span></div>
+    `;
+}
+
+function showTab(tab){
+    document.getElementById("inventoryTab").style.display = tab === "inventory" ? "block" : "none";
+    document.getElementById("shopTab").style.display = tab === "shop" ? "block" : "none";
+    document.getElementById("achievementsTab").style.display = tab === "achievements" ? "block" : "none";
+    document.getElementById("statsTab").style.display = tab === "stats" ? "block" : "none";
+
+    document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+    const tabs = document.querySelectorAll(".tab");
+
+    if(tab === "inventory") tabs[0].classList.add("active");
+    if(tab === "shop") tabs[1].classList.add("active");
+    if(tab === "achievements") tabs[2].classList.add("active");
+    if(tab === "stats") tabs[3].classList.add("active");
+}
+
+function toast(msg){
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+
+    setTimeout(()=>{
+        t.classList.remove("show");
+    },2600);
+}
+
+document.getElementById("hatchBtn").addEventListener("click",()=>hatch(10,false,false));
+document.getElementById("multiBtn").addEventListener("click",multiHatch);
+document.getElementById("sellCommonsBtn").addEventListener("click",sellCommons);
+document.getElementById("claimBtn").addEventListener("click",claimDaily);
+document.getElementById("egg").addEventListener("click",()=>hatch(10,false,false));
+
+load();
+checkAchievements();
+updateUI();
+</script>
+
+</body>
+</html>
