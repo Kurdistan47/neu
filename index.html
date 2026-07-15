@@ -477,6 +477,163 @@ button:disabled{
     75%{transform:translate*7px,8px);}
     100%{transform:tran*late(0,0);}
 }
+    .real-dragon-card{
+    position:relative;
+    width:100%;
+    height:190px;
+    border-radius:22px;
+    overflow:hidden;
+    background:#050308;
+    box-shadow:0 0 35px rgba(196,92,255,.45);
+}
+
+.real-dragon-img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    animation:legendaryCardMove 2.8s ease-in-out infinite;
+    filter:contrast(1.15) saturate(1.25);
+}
+
+@keyframes legendaryCardMove{
+    0%{
+        transform:scale(1.05) translateY(0);
+    }
+    50%{
+        transform:scale(1.14) translateY(-8px);
+    }
+    100%{
+        transform:scale(1.05) translateY(0);
+    }
+}
+
+.dragon-smoke{
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(circle at 35% 60%, rgba(255,255,255,.28), transparent 28%),
+        radial-gradient(circle at 65% 45%, rgba(196,92,255,.18), transparent 32%),
+        linear-gradient(to top, rgba(0,0,0,.55), transparent);
+    opacity:.75;
+    animation:smokeLayer 3s ease-in-out infinite;
+    pointer-events:none;
+}
+
+@keyframes smokeLayer{
+    0%{
+        transform:translateX(-20px);
+        opacity:.45;
+    }
+    50%{
+        transform:translateX(20px);
+        opacity:.85;
+    }
+    100%{
+        transform:translateX(-20px);
+        opacity:.45;
+    }
+}
+
+.cinematic-real-dragon{
+    position:relative;
+    width:760px;
+    max-width:95vw;
+    height:460px;
+    overflow:hidden;
+    border-radius:28px;
+    box-shadow:
+        0 0 80px rgba(196,92,255,.65),
+        0 0 160px rgba(255,40,40,.35);
+    background:#020104;
+    animation:cinematicDragonRoar 3.1s ease-out forwards;
+}
+
+.cinematic-dragon-img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transform-origin:center;
+    animation:berserkerRoar 3.1s ease-out forwards;
+    filter:contrast(1.2) saturate(1.25) brightness(.95);
+}
+
+@keyframes berserkerRoar{
+    0%{
+        transform:scale(1.25) translateY(80px);
+        filter:brightness(.15) blur(3px);
+    }
+    25%{
+        transform:scale(1.12) translateY(25px);
+        filter:brightness(.55) blur(1px);
+    }
+    45%{
+        transform:scale(1.02) translateY(0);
+        filter:brightness(1.15) blur(0);
+    }
+    62%{
+        transform:scale(1.16) translateY(-10px);
+        filter:brightness(1.45) contrast(1.4);
+    }
+    100%{
+        transform:scale(1.35) translateY(-120px);
+        filter:brightness(.9) contrast(1.2);
+    }
+}
+
+@keyframes cinematicDragonRoar{
+    0%{
+        opacity:0;
+        transform:scale(.45) translateY(120px);
+    }
+    25%{
+        opacity:1;
+        transform:scale(.82) translateY(40px);
+    }
+    55%{
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
+    100%{
+        opacity:0;
+        transform:scale(1.22) translateY(-180px);
+    }
+}
+
+.cinematic-breath{
+    position:absolute;
+    left:18%;
+    top:45%;
+    width:380px;
+    height:150px;
+    border-radius:50%;
+    background:
+        radial-gradient(circle, rgba(255,80,40,.85), transparent 55%),
+        radial-gradient(circle, rgba(196,92,255,.45), transparent 70%);
+    filter:blur(22px);
+    opacity:0;
+    animation:dragonBreath 3.1s ease-out forwards;
+    pointer-events:none;
+}
+
+@keyframes dragonBreath{
+    0%,35%{
+        opacity:0;
+        transform:scale(.3) translateX(0);
+    }
+    50%{
+        opacity:.9;
+        transform:scale(1) translateX(-80px);
+    }
+    75%{
+        opacity:.55;
+        transform:scale(1.8) translateX(-180px);
+    }
+    100%{
+        opacity:0;
+        transform:scale(2.4) translateX(-250px);
+    }
+}
 
 @media(max-width:85*px){
     .layout{
@@ -1085,70 +1242,52 @@ function playSound(rarity){
 }
 
 function cardDragonSVG(rarity){
-    const c = colors[rarity];
 
-    if(rarity === "common"){
+    if(rarity === "legendary"){
         return `
-        <svg class="dragon-svg common" viewBox="0 0 260 220">
-            <text x="34" y="135" font-size="80">🐉</text>
-            <text x="120" y="130" font-size="48">🛒</text>
-            <text x="165" y="126" font-size="45">🥤</text>
-            <text x="190" y="160" font-size="38">🥤</text>
-        </svg>`;
+        <div class="real-dragon-card legendary">
+            berserker.png
+            <div class="dragon-smoke"></div>
+        </div>
+        `;
     }
 
     return `
     <svg class="dragon-svg ${rarity}" viewBox="0 0 260 220">
-        <defs>
-          <radialGradient id="g${rarity}">
-            <stop offset="0%" stop-color="white"/>
-            <stop offset="35%" stop-color="${c}"/>
-            <stop offset="100%" stop-color="#111"/>
-          </radialGradient>
-        </defs>
-        <ellipse cx="130" cy="116" rx="95" ry="76" fill="url(#g${rarity})" opacity=".25"/>
-        <path d="M72 105 C28 64, 19 138, 78 154 C61 132, 70 120, 102 128 Z" fill="${c}" opacity=".75"/>
-        <path d="M188 105 C232 64, 241 138, 182 154 C199 132, 190 120, 158 128 Z" fill="${c}" opacity=".75"/>
-        <path d="M90 110 C95 65, 168 65, 174 112 C181 160, 142 181, 112 171 C91 164, 84 139, 90 110 Z" fill="${c}"/>
-        <path d="M105 69 C105 38, 155 38, 156 70 C158 93, 107 93, 105 69 Z" fill="${c}"/>
+        <ellipse cx="130" cy="116" rx="95" ry="76" fill="currentColor" opacity=".25"/>
+        <path d="M72 105 C28 64, 19 138, 78 154 C61 132, 70 120, 102 128 Z" fill="currentColor" opacity=".75"/>
+        <path d="M188 105 C232 64, 241 138, 182 154 C199 132, 190 120, 158 128 Z" fill="currentColor" opacity=".75"/>
+        <path d="M90 110 C95 65, 168 65, 174 112 C181 160, 142 181, 112 171 C91 164, 84 139, 90 110 Z" fill="currentColor"/>
+        <path d="M105 69 C105 38, 155 38, 156 70 C158 93, 107 93, 105 69 Z" fill="currentColor"/>
         <path d="M112 40 L123 10 L132 43 Z" fill="#fff1b8"/>
         <path d="M146 40 L158 10 L166 43 Z" fill="#fff1b8"/>
         <circle cx="120" cy="62" r="6" fill="#071010"/>
         <circle cx="145" cy="62" r="6" fill="#071010"/>
         <path d="M132 81 C138 89, 148 88, 154 80" stroke="#111" stroke-width="4" fill="none"/>
-        <path d="M161 150 C205 160, 209 196, 235 190" stroke="${c}" stroke-width="18" fill="none" stroke-linecap="round"/>
+        <path d="M161 150 C205 160, 209 196, 235 190" stroke="currentColor" stroke-width="18" fill="none" stroke-linecap="round"/>
     </svg>`;
 }
 
 function bigDragonSVG(rarity){
+
+    if(rarity === "legendary"){
+        return `
+        <div class="cinematic-real-dragon">
+            berserker.png
+            <div class="cinematic-breath"></div>
+        </div>
+        `;
+    }
+
     const c = colors[rarity];
 
     return `
     <svg width="520" height="390" viewBox="0 0 520 390" style="filter:drop-shadow(0 0 55px ${c});">
-        <defs>
-            <radialGradient id="aura">
-                <stop offset="0%" stop-color="${c}" stop-opacity=".85"/>
-                <stop offset="65%" stop-color="${c}" stop-opacity=".15"/>
-                <stop offset="100%" stop-color="${c}" stop-opacity="0"/>
-            </radialGradient>
-        </defs>
-        <ellipse cx="260" cy="205" rx="245" ry="160" fill="url(#aura)"/>
-        <path d="M142 180 C58 76, 20 228, 146 254 C108 216, 128 190, 205 207 Z" fill="${c}" opacity=".8">
-            <animateTransform attributeName="transform" type="rotate" values="-5 150 200;8 150 200;-5 150 200" dur=".7s" repeatCount="indefinite"/>
-        </path>
-        <path d="M378 180 C462 76, 500 228, 374 254 C412 216, 392 190, 315 207 Z" fill="${c}" opacity=".8">
-            <animateTransform attributeName="transform" type="rotate" values="5 370 200;-8 370 200;5 370 200" dur=".7s" repeatCount="indefinite"/>
-        </path>
+        <ellipse cx="260" cy="205" rx="245" ry="160" fill="${c}" opacity=".25"/>
+        <path d="M142 180 C58 76, 20 228, 146 254 C108 216, 128 190, 205 207 Z" fill="${c}" opacity=".8"/>
+        <path d="M378 180 C462 76, 500 228, 374 254 C412 216, 392 190, 315 207 Z" fill="${c}" opacity=".8"/>
         <path d="M190 190 C188 92, 330 92, 332 192 C336 286, 250 324, 210 286 C184 261, 184 225, 190 190 Z" fill="${c}"/>
         <path d="M215 95 C210 38, 310 38, 305 97 C300 133, 220 133, 215 95 Z" fill="${c}"/>
-        <path d="M232 50 L250 2 L266 55 Z" fill="#fff2b8"/>
-        <path d="M284 50 L305 2 L316 58 Z" fill="#fff2b8"/>
-        <ellipse cx="242" cy="88" rx="12" ry="7" fill="#020202"/>
-        <ellipse cx="282" cy="88" rx="12" ry="7" fill="#020202"/>
-        <path d="M260 124 C278 145, 302 138, 316 118" stroke="#080808" stroke-width="8" fill="none"/>
-        <path d="M325 260 C420 290, 430 354, 493 334" stroke="${c}" stroke-width="34" fill="none" stroke-linecap="round">
-            <animate attributeName="d" values="M325 260 C420 290, 430 354, 493 334;M325 260 C410 245, 430 344, 493 310;M325 260 C420 290, 430 354, 493 334" dur="1s" repeatCount="indefinite"/>
-        </path>
     </svg>`;
 }
 
